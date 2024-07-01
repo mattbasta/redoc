@@ -92,7 +92,7 @@ const defaultTheme: ThemeInterface = {
     defaultDetailsWidth: '75%',
     typeNameColor: theme => theme.colors.text.secondary,
     typeTitleColor: theme => theme.schema.typeNameColor,
-    requireLabelColor: theme => theme.colors.error.main,
+    requireLabelColor: '#424918',
     labelsTextSize: '0.9em',
     nestingSpacing: '1em',
     nestedBackground: '#fafafa',

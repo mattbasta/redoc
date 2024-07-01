@@ -145,10 +145,12 @@ const PayloadRenderer = ({
       operation.servers[0].url +
       operation.path +
       ' \\\n' +
-      "  -d '" +
-      JSON.stringify(body, null, 2).split('\n').join('\n  ') +
-      "' \\\n" +
-      '  -H "Content-Type: application/json" \\\n' +
+      (body
+        ? "  -d '" +
+          JSON.stringify(body, null, 2).split('\n').join('\n  ') +
+          "' \\\n" +
+          '  -H "Content-Type: application/json" \\\n'
+        : '') +
       (securityHeader ? `  -H "${securityHeader[0]}: ${securityHeader[1]}" \\\n` : '') +
       operation.parameters
         .filter(x => x.in === 'header')

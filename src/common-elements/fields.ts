@@ -79,11 +79,14 @@ export const TypeFormat = TypeName;
 export const RequiredLabel = styled(FieldLabel).attrs({
   as: 'div',
 })`
+  background: #f3ffb0;
   color: ${props => props.theme.schema.requireLabelColor};
+  border-radius: 3px;
+  display: inline-block;
   font-size: ${props => props.theme.schema.labelsTextSize};
   font-weight: normal;
-  margin-left: 20px;
-  line-height: 1;
+  line-height: 16px;
+  padding: 0 4px;
 `;
 
 export const PropertyLabel = styled(RequiredLabel)`
