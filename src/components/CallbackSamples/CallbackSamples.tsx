@@ -2,7 +2,6 @@ import { observer } from 'mobx-react';
 import * as React from 'react';
 
 import styled from '../../styled-components';
-import { RightPanelHeader } from '../../common-elements';
 import { RedocNormalizedOptions } from '../../services';
 import { CallbackModel } from '../../services/models';
 import { OptionsContext } from '../OptionsProvider';
@@ -57,8 +56,6 @@ export class CallbackSamples extends React.Component<CallbackSamplesProps> {
 
     return (
       <div>
-        <RightPanelHeader> Callback payload samples </RightPanelHeader>
-
         <SamplesWrapper>
           <GenericChildrenSwitcher
             items={operations}

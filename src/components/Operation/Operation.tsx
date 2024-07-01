@@ -1,7 +1,14 @@
 import { observer } from 'mobx-react';
 import * as React from 'react';
 
-import { Badge, DarkRightPanel, H2, MiddlePanel, Row } from '../../common-elements';
+import {
+  Badge,
+  DarkRightInnerPanel,
+  DarkRightPanel,
+  H2,
+  MiddlePanel,
+  Row,
+} from '../../common-elements';
 import { ShareLink } from '../../common-elements/linkify';
 import { OperationModel } from '../../services/models';
 import styled from '../../styled-components';
@@ -32,43 +39,41 @@ export const Operation = observer(({ operation }: OperationProps): JSX.Element =
   const hasDescription = !!(description || externalDocs);
   const { showWebhookVerb } = React.useContext(OptionsContext);
   return (
-    <OptionsContext.Consumer>
-      {options => (
-        <Row {...{ [SECTION_ATTR]: operation.operationHash }} id={operation.operationHash}>
-          <MiddlePanel>
-            <H2>
-              <ShareLink to={operation.id} />
-              {summary} {deprecated && <Badge type="warning"> Deprecated </Badge>}
-              {isWebhook && (
-                <Badge type="primary">
-                  {' '}
-                  Webhook {showWebhookVerb && httpVerb && '| ' + httpVerb.toUpperCase()}
-                </Badge>
-              )}
-            </H2>
-            {options.pathInMiddlePanel && !isWebhook && (
-              <Endpoint operation={operation} inverted={true} />
-            )}
-            {hasDescription && (
-              <Description>
-                {description !== undefined && <Markdown source={description} />}
-                {externalDocs && <ExternalDocumentation externalDocs={externalDocs} />}
-              </Description>
-            )}
-            <Extensions extensions={operation.extensions} />
-            <SecurityRequirements securities={operation.security} />
-            <Parameters parameters={operation.parameters} body={operation.requestBody} />
-            <ResponsesList responses={operation.responses} />
-            <CallbacksList callbacks={operation.callbacks} />
-          </MiddlePanel>
-          <DarkRightPanel>
-            {!options.pathInMiddlePanel && !isWebhook && <Endpoint operation={operation} />}
-            <RequestSamples operation={operation} />
-            <ResponseSamples operation={operation} />
-            <CallbackSamples callbacks={operation.callbacks} />
-          </DarkRightPanel>
-        </Row>
-      )}
-    </OptionsContext.Consumer>
+    <Row {...{ [SECTION_ATTR]: operation.operationHash }} id={operation.operationHash}>
+      <MiddlePanel>
+        <H2>
+          <ShareLink to={operation.id} />
+          {summary} {deprecated && <Badge type="warning"> Deprecated </Badge>}
+          {isWebhook && (
+            <Badge type="primary">
+              {' '}
+              Webhook {showWebhookVerb && httpVerb && '| ' + httpVerb.toUpperCase()}
+            </Badge>
+          )}
+        </H2>
+        {!isWebhook && <Endpoint operation={operation} inverted={true} />}
+        {hasDescription && (
+          <Description>
+            {description !== undefined && <Markdown source={description} />}
+            {externalDocs && <ExternalDocumentation externalDocs={externalDocs} />}
+          </Description>
+        )}
+        <Extensions extensions={operation.extensions} />
+        <SecurityRequirements securities={operation.security} />
+        <Parameters parameters={operation.parameters} body={operation.requestBody} />
+        <ResponsesList responses={operation.responses} />
+        <CallbacksList callbacks={operation.callbacks} />
+      </MiddlePanel>
+      <DarkRightPanel>
+        <DarkRightInnerPanel>
+          <div style={{ padding: '0 16px', lineHeight: '48px' }}>
+            {!isWebhook && <Endpoint operation={operation} />}
+          </div>
+          <RequestSamples operation={operation} />
+        </DarkRightInnerPanel>
+        <ResponseSamples operation={operation} />
+        <CallbackSamples callbacks={operation.callbacks} />
+      </DarkRightPanel>
+    </Row>
   );
 });

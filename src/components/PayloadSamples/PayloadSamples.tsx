@@ -4,7 +4,6 @@ import { MediaTypeSamples } from './MediaTypeSamples';
 
 import { MediaContentModel } from '../../services/models';
 import { DropdownOrLabel } from '../DropdownOrLabel/DropdownOrLabel';
-import { MediaTypesSwitch } from '../MediaTypeSwitch/MediaTypesSwitch';
 import { InvertedSimpleDropdown, MimeLabel } from './styled.elements';
 
 export interface PayloadSamplesProps {
@@ -20,15 +19,13 @@ export class PayloadSamples extends React.Component<PayloadSamplesProps> {
     }
 
     return (
-      <MediaTypesSwitch content={mimeContent} renderDropdown={this.renderDropdown} withLabel={true}>
-        {mediaType => (
-          <MediaTypeSamples
-            key="samples"
-            mediaType={mediaType}
-            renderDropdown={this.renderDropdown}
-          />
-        )}
-      </MediaTypesSwitch>
+      <MediaTypeSamples
+        mediaType={
+          mimeContent.mediaTypes.find(x => x.name === 'application/json') ??
+          mimeContent.mediaTypes[0]
+        }
+        renderDropdown={this.renderDropdown}
+      />
     );
   }
 

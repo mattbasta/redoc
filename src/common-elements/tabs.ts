@@ -6,70 +6,88 @@ import styled from '../styled-components';
 export { Tab, TabList, TabPanel } from 'react-tabs';
 
 export const Tabs = styled(ReactTabs)`
+  background-color: #0e0e0e;
+  border-radius: ${props => props.theme.spacing.unit}px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
   > ul {
+    display: flex;
+    gap: ${props => props.theme.spacing.unit * 2}px;
     list-style: none;
-    padding: 0;
+    padding: 0 ${props => props.theme.spacing.unit * 2}px;
     margin: 0;
-    margin: 0 -5px;
+    border-bottom: 2px solid #1d1e23;
 
     > li {
-      padding: 5px 10px;
-      display: inline-block;
+      padding: 0;
+      line-height: 46px;
 
-      background-color: ${({ theme }) => theme.codeBlock.backgroundColor};
-      border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+      background: transparent;
+      border-color: transparent;
+      border-width: 0 0 2px;
+      border-style: solid;
       cursor: pointer;
       text-align: center;
       outline: none;
       color: ${({ theme }) => darken(theme.colors.tonalOffset, theme.rightPanel.textColor)};
-      margin: 0
-        ${({ theme }) => `${theme.spacing.unit}px ${theme.spacing.unit}px ${theme.spacing.unit}px`};
-      border: 1px solid ${({ theme }) => darken(0.05, theme.codeBlock.backgroundColor)};
-      border-radius: 5px;
-      min-width: 60px;
-      font-size: 0.9em;
-      font-weight: bold;
+      font-size: 16px;
+      font-weight: 450;
+      margin-bottom: -2px;
 
       &.react-tabs__tab--selected {
-        color: ${props => props.theme.colors.text.primary};
-        background: ${({ theme }) => theme.rightPanel.textColor};
+        &.tab-http-success {
+          color: ${props => props.theme.colors.responses.success.tabTextColor};
+          border-color: ${props => props.theme.colors.responses.success.tabTextColor};
+        }
+
+        &.tab-http-redirect {
+          color: ${props => props.theme.colors.responses.redirect.tabTextColor};
+          border-color: ${props => props.theme.colors.responses.redirect.tabTextColor};
+        }
+
+        &.tab-http-info {
+          color: ${props => props.theme.colors.responses.info.tabTextColor};
+          border-color: ${props => props.theme.colors.responses.info.tabTextColor};
+        }
+
+        &.tab-http-error {
+          color: ${props => props.theme.colors.responses.error.tabTextColor};
+          border-color: ${props => props.theme.colors.responses.error.tabTextColor};
+        }
+
         &:focus {
           outline: auto;
         }
       }
-
-      &:only-child {
-        flex: none;
-        min-width: 100px;
-      }
-
-      &.tab-success {
-        color: ${props => props.theme.colors.responses.success.tabTextColor};
-      }
-
-      &.tab-redirect {
-        color: ${props => props.theme.colors.responses.redirect.tabTextColor};
-      }
-
-      &.tab-info {
-        color: ${props => props.theme.colors.responses.info.tabTextColor};
-      }
-
-      &.tab-error {
-        color: ${props => props.theme.colors.responses.error.tabTextColor};
-      }
     }
   }
   > .react-tabs__tab-panel {
-    background: ${({ theme }) => theme.codeBlock.backgroundColor};
     & > div,
     & > pre {
-      padding: ${props => props.theme.spacing.unit * 4}px;
+      padding: ${props => props.theme.spacing.unit * 2}px;
       margin: 0;
     }
 
     & > div > pre {
       padding: 0;
+    }
+  }
+  .tab--copybutton {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    color: #a5b4c7;
+    cursor: pointer;
+    position: absolute;
+    top: 12px;
+    margin: auto 0;
+    height: 24px;
+    right: ${props => props.theme.spacing.unit * 2}px;
+    transition: color 0.25s ease;
+    &:hover {
+      color: #ffffff;
     }
   }
 `;

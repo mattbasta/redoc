@@ -45,6 +45,8 @@ const DropdownComponent = (props: DropdownProps): JSX.Element => {
     onChange(options[index]);
   };
 
+  const selected = options.find(option => option.value === value)!;
+
   return (
     <div className={className}>
       <ArrowIcon variant={variant} />
@@ -60,7 +62,7 @@ const DropdownComponent = (props: DropdownProps): JSX.Element => {
           </option>
         ))}
       </select>
-      <label>{value}</label>
+      <label>{selected.title ?? selected.value}</label>
     </div>
   );
 };

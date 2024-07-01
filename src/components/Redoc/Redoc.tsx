@@ -14,6 +14,7 @@ import { ApiContentWrap, BackgroundStub, RedocWrap } from './styled.elements';
 
 import { SearchBox } from '../SearchBox/SearchBox';
 import { StoreProvider } from '../StoreBuilder';
+import { LanguagePicker, SampleLanguageProvider } from '../PayloadSamples/SampleLanguageContext';
 
 export interface RedocProps {
   store: AppStore;
@@ -40,28 +41,31 @@ export class Redoc extends React.Component<RedocProps> {
     return (
       <ThemeProvider theme={options.theme}>
         <StoreProvider value={store}>
-          <OptionsProvider value={options}>
-            <RedocWrap className="redoc-wrap">
-              <StickyResponsiveSidebar menu={menu} className="menu-content">
-                <ApiLogo info={spec.info} />
-                {(!options.disableSearch && (
-                  <SearchBox
-                    search={search!}
-                    marker={marker}
-                    getItemById={menu.getItemById}
-                    onActivate={menu.activateAndScroll}
-                  />
-                )) ||
-                  null}
-                <SideMenu menu={menu} />
-              </StickyResponsiveSidebar>
-              <ApiContentWrap className="api-content">
-                <ApiInfo store={store} />
-                <ContentItems items={menu.items as any} />
-              </ApiContentWrap>
-              <BackgroundStub />
-            </RedocWrap>
-          </OptionsProvider>
+          <SampleLanguageProvider>
+            <OptionsProvider value={options}>
+              <RedocWrap className="redoc-wrap">
+                <StickyResponsiveSidebar menu={menu} className="menu-content">
+                  <ApiLogo info={spec.info} />
+                  {(!options.disableSearch && (
+                    <SearchBox
+                      search={search!}
+                      marker={marker}
+                      getItemById={menu.getItemById}
+                      onActivate={menu.activateAndScroll}
+                    />
+                  )) ||
+                    null}
+                  <SideMenu menu={menu} />
+                </StickyResponsiveSidebar>
+                <LanguagePicker />
+                <ApiContentWrap className="api-content">
+                  <ApiInfo store={store} />
+                  <ContentItems items={menu.items as any} />
+                </ApiContentWrap>
+                <BackgroundStub />
+              </RedocWrap>
+            </OptionsProvider>
+          </SampleLanguageProvider>
         </StoreProvider>
       </ThemeProvider>
     );

@@ -2,7 +2,6 @@ import * as React from 'react';
 import styled from '../../styled-components';
 
 import { SampleControls } from '../../common-elements';
-import { CopyButtonWrapper } from '../../common-elements/CopyButtonWrapper';
 import { PrismDiv } from '../../common-elements/PrismDiv';
 import { jsonToHTML } from '../../utils/jsonToHtml';
 import { OptionsContext } from '../OptionsProvider';
@@ -21,38 +20,6 @@ const JsonViewerWrap = styled.div`
 
 const Json = (props: JsonProps) => {
   const [node, setNode] = React.useState<HTMLDivElement>();
-
-  const renderInner = ({ renderCopyButton }) => {
-    const showFoldingButtons =
-      props.data &&
-      Object.values(props.data).some(value => typeof value === 'object' && value !== null);
-
-    return (
-      <JsonViewerWrap>
-        <SampleControls>
-          {renderCopyButton()}
-          {showFoldingButtons && (
-            <>
-              <button onClick={expandAll}> Expand all </button>
-              <button onClick={collapseAll}> Collapse all </button>
-            </>
-          )}
-        </SampleControls>
-        <OptionsContext.Consumer>
-          {options => (
-            <PrismDiv
-              className={props.className}
-              // tslint:disable-next-line
-              ref={node => setNode(node!)}
-              dangerouslySetInnerHTML={{
-                __html: jsonToHTML(props.data, options.jsonSampleExpandLevel),
-              }}
-            />
-          )}
-        </OptionsContext.Consumer>
-      </JsonViewerWrap>
-    );
-  };
 
   const expandAll = () => {
     const elements = node?.getElementsByClassName('collapsible');
@@ -108,7 +75,34 @@ const Json = (props: JsonProps) => {
     };
   }, [clickListener, focusListener, node]);
 
-  return <CopyButtonWrapper data={props.data}>{renderInner}</CopyButtonWrapper>;
+  const showFoldingButtons =
+    props.data &&
+    Object.values(props.data).some(value => typeof value === 'object' && value !== null);
+
+  return (
+    <JsonViewerWrap>
+      <SampleControls>
+        {showFoldingButtons && (
+          <>
+            <button onClick={expandAll}> Expand all </button>
+            <button onClick={collapseAll}> Collapse all </button>
+          </>
+        )}
+      </SampleControls>
+      <OptionsContext.Consumer>
+        {options => (
+          <PrismDiv
+            className={props.className}
+            // tslint:disable-next-line
+            ref={node => setNode(node!)}
+            dangerouslySetInnerHTML={{
+              __html: jsonToHTML(props.data, options.jsonSampleExpandLevel),
+            }}
+          />
+        )}
+      </OptionsContext.Consumer>
+    </JsonViewerWrap>
+  );
 };
 
 export const JsonViewer = styled(Json)`

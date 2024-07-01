@@ -3,48 +3,93 @@ import * as React from 'react';
 
 import { OperationModel } from '../../services/models';
 
-import { RightPanelHeader, Tab, TabList, TabPanel, Tabs } from '../../common-elements';
-import { PayloadSamples } from '../PayloadSamples/PayloadSamples';
-import { l } from '../../services/Labels';
+import { Tab, TabList, TabPanel, Tabs } from '../../common-elements';
+import { InvertedSimpleDropdown, NoSampleLabel } from '../PayloadSamples/styled.elements';
+import { Markdown } from '../Markdown/Markdown';
+import { CopyButton, useCopy } from '../../common-elements/CopyButtonWrapper';
+import { ExampleValue } from '../PayloadSamples/ExampleValue';
 
 export interface ResponseSamplesProps {
   operation: OperationModel;
 }
 
-@observer
-export class ResponseSamples extends React.Component<ResponseSamplesProps> {
-  operation: OperationModel;
+export const ResponseSamples = observer(({ operation }: ResponseSamplesProps) => {
+  const responses = operation.responses.filter(response => {
+    return response.content?.hasSample;
+  });
 
-  render() {
-    const { operation } = this.props;
-    const responses = operation.responses.filter(response => {
-      return response.content && response.content.hasSample;
-    });
+  const { copy, tooltipShown } = useCopy();
 
-    return (
-      (responses.length > 0 && (
-        <div>
-          <RightPanelHeader> {l('responseSamples')} </RightPanelHeader>
+  const [selectedExamples, setSelectedExamples] = React.useState<number[]>(responses.map(() => 0));
 
-          <Tabs defaultIndex={0}>
-            <TabList>
-              {responses.map(response => (
-                <Tab className={'tab-' + response.type} key={response.code}>
-                  {response.code}
-                </Tab>
-              ))}
-            </TabList>
-            {responses.map(response => (
-              <TabPanel key={response.code}>
-                <div>
-                  <PayloadSamples content={response.content!} />
-                </div>
-              </TabPanel>
-            ))}
-          </Tabs>
-        </div>
-      )) ||
-      null
-    );
+  if (responses.length === 0) {
+    return null;
   }
-}
+
+  return (
+    <Tabs defaultIndex={0}>
+      <TabList>
+        {responses.map(response => (
+          <Tab className={'tab-http-' + response.type} key={response.code}>
+            {response.code}
+          </Tab>
+        ))}
+      </TabList>
+      {responses.map((response, i) => {
+        const { examples = {}, name: mimeType } =
+          response.content!.mediaTypes.find(x => x.name === 'application/json') ??
+          response.content!.mediaTypes[0];
+
+        let content: React.ReactNode = null;
+        let copyableData: unknown;
+
+        const examplesNames = Object.keys(examples);
+        if (examplesNames.length === 0) {
+          content = <NoSampleLabel>No sample</NoSampleLabel>;
+        } else {
+          const exampleName = examplesNames[selectedExamples[i]];
+          const example = examples[exampleName];
+          copyableData = example.value;
+          const description = example.description;
+
+          content = (
+            <>
+              {examplesNames.length > 1 && (
+                <InvertedSimpleDropdown
+                  value={exampleName}
+                  options={examplesNames.map((name, idx) => {
+                    return {
+                      title: examples[name].summary,
+                      value: name,
+                      idx,
+                    };
+                  })}
+                  variant="dark"
+                  onChange={x =>
+                    setSelectedExamples(state => state.map((v, j) => (i === j ? x.idx! : v)))
+                  }
+                  ariaLabel="Example"
+                />
+              )}
+              {description && <Markdown source={description} />}
+              <ExampleValue value={example.value} mimeType={mimeType} />
+            </>
+          );
+        }
+
+        return (
+          <TabPanel key={response.code}>
+            {!!copyableData && (
+              <CopyButton
+                onClick={() => copy(copyableData)}
+                tooltipShown={tooltipShown}
+                className="tab--copybutton"
+              />
+            )}
+            <div>{content}</div>
+          </TabPanel>
+        );
+      })}
+    </Tabs>
+  );
+});

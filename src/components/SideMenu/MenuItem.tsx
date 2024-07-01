@@ -3,12 +3,9 @@ import * as React from 'react';
 
 import { ShelfIcon } from '../../common-elements/shelfs';
 import { OperationModel } from '../../services';
-import { shortenHTTPVerb } from '../../utils/openapi';
 import { MenuItems } from './MenuItems';
-import { MenuItemLabel, MenuItemLi, MenuItemTitle, OperationBadge } from './styled.elements';
-import { l } from '../../services/Labels';
+import { MenuItemLabel, MenuItemLi, MenuItemTitle } from './styled.elements';
 import { scrollIntoViewIfNeeded } from '../../utils';
-import { OptionsContext } from '../OptionsProvider';
 import type { IMenuItem } from '../../services';
 
 export interface MenuItemProps {
@@ -55,7 +52,6 @@ export class MenuItem extends React.Component<MenuItemProps> {
           <OperationMenuItemContent {...this.props} item={item as OperationModel} />
         ) : (
           <MenuItemLabel $depth={item.depth} $active={item.active} $type={item.type} ref={this.ref}>
-            {item.type === 'schema' && <OperationBadge type="schema">schema</OperationBadge>}
             <MenuItemTitle width="calc(100% - 38px)" title={item.sidebarLabel}>
               {item.sidebarLabel}
               {this.props.children}
@@ -67,11 +63,13 @@ export class MenuItem extends React.Component<MenuItemProps> {
           </MenuItemLabel>
         )}
         {!withoutChildren && item.items && item.items.length > 0 && (
-          <MenuItems
-            expanded={item.expanded}
-            items={item.items}
-            onActivate={this.props.onActivate}
-          />
+          <div style={{ paddingLeft: '16px' }}>
+            <MenuItems
+              expanded={item.expanded}
+              items={item.items}
+              onActivate={this.props.onActivate}
+            />
+          </div>
         )}
       </MenuItemLi>
     );
@@ -86,7 +84,6 @@ export interface OperationMenuItemContentProps {
 export const OperationMenuItemContent = observer((props: OperationMenuItemContentProps) => {
   const { item } = props;
   const ref = React.createRef<HTMLLabelElement>();
-  const { showWebhookVerb } = React.useContext(OptionsContext);
 
   React.useEffect(() => {
     if (props.item.active && ref.current) {
@@ -101,13 +98,6 @@ export const OperationMenuItemContent = observer((props: OperationMenuItemConten
       $deprecated={item.deprecated}
       ref={ref}
     >
-      {item.isWebhook ? (
-        <OperationBadge type="hook">
-          {showWebhookVerb ? item.httpVerb : l('webhook')}
-        </OperationBadge>
-      ) : (
-        <OperationBadge type={item.httpVerb}>{shortenHTTPVerb(item.httpVerb)}</OperationBadge>
-      )}
       <MenuItemTitle tabIndex={0} width="calc(100% - 38px)">
         {item.sidebarLabel}
         {props.children}

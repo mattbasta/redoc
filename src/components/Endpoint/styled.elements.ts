@@ -1,9 +1,8 @@
 import styled from '../../styled-components';
 
 export const OperationEndpointWrap = styled.div`
-  cursor: pointer;
   position: relative;
-  margin-bottom: 5px;
+  margin-bottom: 16px;
 `;
 
 export const ServerRelativeURL = styled.span`
@@ -14,13 +13,13 @@ export const ServerRelativeURL = styled.span`
   text-overflow: ellipsis;
 `;
 
-export const EndpointInfo = styled.button<{ $expanded?: boolean; $inverted?: boolean }>`
+export const EndpointInfo = styled.div<{ $inverted?: boolean }>`
   outline: 0;
+  font-family: 'Fira Code', monospace;
   color: inherit;
   width: 100%;
   text-align: left;
   cursor: pointer;
-  padding: 10px 30px 10px ${props => (props.$inverted ? '10px' : '20px')};
   border-radius: ${props => (props.$inverted ? '0' : '4px 4px 0 0')};
   background-color: ${props =>
     props.$inverted ? 'transparent' : props.theme.codeBlock.backgroundColor};
@@ -30,10 +29,6 @@ export const EndpointInfo = styled.button<{ $expanded?: boolean; $inverted?: boo
   border: ${props => (props.$inverted ? '0' : '1px solid transparent')};
   border-bottom: ${props => (props.$inverted ? '1px solid #ccc' : '0')};
   transition: border-color 0.25s ease;
-
-  ${props =>
-    (props.$expanded && !props.$inverted && `border-color: ${props.theme.colors.border.dark};`) ||
-    ''}
 
   .${ServerRelativeURL} {
     color: ${props => (props.$inverted ? props.theme.colors.text.primary : '#ffffff')};
@@ -48,7 +43,6 @@ export const HttpVerb = styled.span.attrs((props: { type: string; $compact?: boo
 }))<{ type: string; $compact?: boolean }>`
   font-size: ${props => (props.$compact ? '0.8em' : '0.929em')};
   line-height: ${props => (props.$compact ? '18px' : '20px')};
-  background-color: ${props => props.theme.colors.http[props.type] || '#999999'};
   color: #ffffff;
   padding: ${props => (props.$compact ? '2px 8px' : '3px 10px')};
   text-transform: uppercase;

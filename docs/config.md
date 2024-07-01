@@ -102,10 +102,6 @@ If set to `true`, the sidebar uses the native scrollbar instead of perfect-scrol
 
 Shows only required fields in request samples.
 
-### pathInMiddlePanel
-
-Shows the path link and HTTP verb in the middle panel instead of the right panel.
-
 ### payloadSampleIdx
 
 If set, the payload sample is inserted at the specified index. If there are `N` payload samples and the value configured here is bigger than `N`, the payload sample is inserted last. Indexes start from 0.

@@ -64,6 +64,12 @@ export const DarkRightPanel = styled(RightPanel)`
   background-color: ${props => props.theme.rightPanel.backgroundColor};
 `;
 
+export const DarkRightInnerPanel = styled.div`
+  background-color: ${props => props.theme.codeBlock.backgroundColor};
+  border-radius: ${props => props.theme.spacing.unit}px;
+  margin-bottom: ${props => props.theme.spacing.unit * 2}px;
+`;
+
 export const Row = styled.div`
   display: flex;
   width: 100%;

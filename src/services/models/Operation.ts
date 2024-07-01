@@ -29,17 +29,15 @@ import type { ContentItemModel, ExtendedOpenAPIOperation, IMenuItem } from '../t
 export interface XPayloadSample {
   lang: 'payload';
   label: string;
-  requestBodyContent: MediaContentModel;
+  requestBodyContent: MediaContentModel | null;
   source: string;
 }
 
 export function isPayloadSample(
   sample: XPayloadSample | OpenAPIXCodeSample,
 ): sample is XPayloadSample {
-  return sample.lang === 'payload' && (sample as any).requestBodyContent;
+  return sample.lang === 'payload';
 }
-
-let isCodeSamplesWarningPrinted = false;
 
 /**
  * Operation model ready to be used by components
@@ -195,30 +193,25 @@ export class OperationModel implements IMenuItem {
 
   @memoize
   get codeSamples() {
-    const { payloadSampleIdx, hideRequestPayloadSample } = this.options;
+    const { payloadSampleIdx } = this.options;
     let samples: Array<OpenAPIXCodeSample | XPayloadSample> =
-      this.operationSpec['x-codeSamples'] || this.operationSpec['x-code-samples'] || [];
+      this.operationSpec['x-codeSamples'] || [];
 
-    if (this.operationSpec['x-code-samples'] && !isCodeSamplesWarningPrinted) {
-      isCodeSamplesWarningPrinted = true;
-      console.warn('"x-code-samples" is deprecated. Use "x-codeSamples" instead');
-    }
+    const requestBodyContent = this.requestBody?.content;
+    // if (requestBodyContent?.hasSample && !hideRequestPayloadSample) {
+    // }
+    const insertInx = Math.min(samples.length, payloadSampleIdx);
 
-    const requestBodyContent = this.requestBody && this.requestBody.content;
-    if (requestBodyContent && requestBodyContent.hasSample && !hideRequestPayloadSample) {
-      const insertInx = Math.min(samples.length, payloadSampleIdx);
-
-      samples = [
-        ...samples.slice(0, insertInx),
-        {
-          lang: 'payload',
-          label: 'Payload',
-          source: '',
-          requestBodyContent,
-        },
-        ...samples.slice(insertInx),
-      ];
-    }
+    samples = [
+      ...samples.slice(0, insertInx),
+      {
+        lang: 'payload',
+        label: 'Payload',
+        source: '',
+        requestBodyContent,
+      },
+      ...samples.slice(insertInx),
+    ];
 
     return samples;
   }

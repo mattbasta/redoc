@@ -9,9 +9,13 @@ const swagger = window.location.search.indexOf('swagger') > -1;
 const userUrl = window.location.search.match(/url=(.*)$/);
 
 const specUrl =
-  (userUrl && userUrl[1]) || (swagger ? 'museum.yaml' : big ? 'big-openapi.json' : 'museum.yaml');
+  (userUrl && userUrl[1]) || (swagger ? 'museum.yaml' : big ? 'big-openapi.json' : 'spec.json');
 
-const options: RedocRawOptions = { nativeScrollbars: false, maxDisplayedEnumValues: 3 };
+const options: RedocRawOptions = {
+  nativeScrollbars: false,
+  maxDisplayedEnumValues: 3,
+  onlyRequiredInSamples: true,
+};
 
 const container = document.getElementById('example');
 const root = createRoot(container!);

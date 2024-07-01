@@ -28,26 +28,33 @@ export const DropdownWrapper = styled.div`
 `;
 
 export const InvertedSimpleDropdown = styled(Dropdown)`
+  color: #fff;
   label {
-    color: ${({ theme }) => theme.rightPanel.textColor};
+    color: #fff;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    font-size: 1em;
+    font-size: 14px;
     text-transform: none;
     border: none;
+    transition: color 0.2s;
   }
   margin: 0 0 10px 0;
   display: block;
-  background-color: ${({ theme }) => transparentize(0.6, theme.rightPanel.backgroundColor)};
-  border: none;
-  padding: 0.9em 1.6em 0.9em 0.9em;
+  background-color: #1d1e23;
+  border: 0;
+  border-radius: 6px;
+  padding: 8px 8px 8px 12px;
   box-shadow: none;
   &:hover,
   &:focus-within {
-    border: none;
+    border: 0;
     box-shadow: none;
-    background-color: ${({ theme }) => transparentize(0.3, theme.rightPanel.backgroundColor)};
+    background-color: #1d1e23;
+
+    label {
+      color: #fff;
+    }
   }
 `;
 

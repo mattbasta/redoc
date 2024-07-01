@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { isJsonLike, langFromMime } from '../../utils/openapi';
 import { JsonViewer } from '../JsonViewer/JsonViewer';
-import { SourceCodeWithCopy } from '../SourceCode/SourceCode';
+import { SourceCode } from '../SourceCode/SourceCode';
 
 export interface ExampleValueProps {
   value: any;
@@ -17,6 +17,6 @@ export function ExampleValue({ value, mimeType }: ExampleValueProps) {
       // just in case example was cached as json but used as non-json
       value = JSON.stringify(value, null, 2);
     }
-    return <SourceCodeWithCopy lang={langFromMime(mimeType)} source={value} />;
+    return <SourceCode lang={langFromMime(mimeType)} source={value} />;
   }
 }

@@ -2,9 +2,9 @@ import { darken, desaturate, lighten, readableColor, transparentize } from 'poli
 
 const defaultTheme: ThemeInterface = {
   spacing: {
-    unit: 5,
-    sectionHorizontal: ({ spacing }) => spacing.unit * 8,
-    sectionVertical: ({ spacing }) => spacing.unit * 8,
+    unit: 8,
+    sectionHorizontal: ({ spacing }) => spacing.unit * 5,
+    sectionVertical: ({ spacing }) => spacing.unit * 5,
   },
   breakpoints: {
     small: '50rem',
@@ -20,7 +20,7 @@ const defaultTheme: ThemeInterface = {
       contrastText: ({ colors }) => readableColor(colors.primary.main),
     },
     success: {
-      main: '#1d8127',
+      main: '#61EED5',
       light: ({ colors }) => lighten(colors.tonalOffset * 2, colors.success.main),
       dark: ({ colors }) => darken(colors.tonalOffset, colors.success.main),
       contrastText: ({ colors }) => readableColor(colors.success.main),
@@ -107,17 +107,17 @@ const defaultTheme: ThemeInterface = {
     fontWeightRegular: '400',
     fontWeightBold: '600',
     fontWeightLight: '300',
-    fontFamily: 'Roboto, sans-serif',
+    fontFamily: '"ABC Normal", sans-serif',
     smoothing: 'antialiased',
     optimizeSpeed: true,
     headings: {
-      fontFamily: 'Montserrat, sans-serif',
+      fontFamily: 'ABC Normal, sans-serif',
       fontWeight: '400',
       lineHeight: '1.6em',
     },
     code: {
       fontSize: '13px',
-      fontFamily: 'Courier, monospace',
+      fontFamily: '"Fira Code", Courier, monospace',
       lineHeight: ({ typography }) => typography.lineHeight,
       fontWeight: ({ typography }) => typography.fontWeightRegular,
       color: '#e53935',
@@ -134,12 +134,12 @@ const defaultTheme: ThemeInterface = {
   },
   sidebar: {
     width: '260px',
-    backgroundColor: '#fafafa',
-    textColor: '#333333',
+    backgroundColor: '#15161A',
+    textColor: '#A0AEC0',
     activeTextColor: theme =>
       theme.sidebar.textColor !== defaultTheme.sidebar!.textColor
         ? theme.sidebar.textColor
-        : theme.colors.primary.main,
+        : '#fff',
     groupItems: {
       activeBackgroundColor: theme => darken(0.1, theme.sidebar.backgroundColor),
       activeTextColor: theme => theme.sidebar.activeTextColor,
@@ -161,7 +161,7 @@ const defaultTheme: ThemeInterface = {
     gutter: '2px',
   },
   rightPanel: {
-    backgroundColor: '#263238',
+    backgroundColor: '#15161A',
     width: '40%',
     textColor: '#ffffff',
     servers: {
@@ -175,7 +175,7 @@ const defaultTheme: ThemeInterface = {
     },
   },
   codeBlock: {
-    backgroundColor: ({ rightPanel }) => darken(0.1, rightPanel.backgroundColor),
+    backgroundColor: '#0e0e0e',
   },
   fab: {
     backgroundColor: '#f2f2f2',

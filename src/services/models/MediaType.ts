@@ -60,7 +60,12 @@ export class MediaTypeModel {
     if (this.schema && this.schema.oneOf) {
       this.examples = {};
       for (const subSchema of this.schema.oneOf) {
-        const sample = Sampler.sample(subSchema.rawSchema as any, samplerOptions, parser.spec);
+        const schema = {
+          ...this.schema.rawSchema,
+          oneOf: undefined,
+          ...subSchema.rawSchema,
+        } as any;
+        const sample = Sampler.sample(schema, samplerOptions, parser.spec);
 
         if (this.schema.discriminatorProp && typeof sample === 'object' && sample) {
           sample[this.schema.discriminatorProp] = subSchema.title;

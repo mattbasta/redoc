@@ -18,7 +18,7 @@ export class CallbackPayloadSample extends React.Component<PayloadSampleProps> {
       isPayloadSample(sample),
     ) as XPayloadSample | undefined;
 
-    if (!payloadSample) {
+    if (!payloadSample?.requestBodyContent) {
       return null;
     }
 
@@ -31,5 +31,5 @@ export class CallbackPayloadSample extends React.Component<PayloadSampleProps> {
 }
 
 export const PayloadSampleWrapper = styled.div`
-  margin-top: 15px;
+  margin-top: 16px;
 `;

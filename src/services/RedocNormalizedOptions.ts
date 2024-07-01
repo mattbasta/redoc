@@ -17,7 +17,6 @@ export interface RedocRawOptions {
   sortOperationsAlphabetically?: boolean | string;
   sortTagsAlphabetically?: boolean | string;
   nativeScrollbars?: boolean | string;
-  pathInMiddlePanel?: boolean | string;
   untrustedSpec?: boolean | string;
   hideLoading?: boolean | string;
   hideDownloadButton?: boolean | string;
@@ -222,7 +221,6 @@ export class RedocNormalizedOptions {
   sortOperationsAlphabetically: boolean;
   sortTagsAlphabetically: boolean;
   nativeScrollbars: boolean;
-  pathInMiddlePanel: boolean;
   untrustedSpec: boolean;
   hideDownloadButton: boolean;
   downloadFileName?: string;
@@ -294,7 +292,6 @@ export class RedocNormalizedOptions {
     this.sortOperationsAlphabetically = argValueToBoolean(raw.sortOperationsAlphabetically);
     this.sortTagsAlphabetically = argValueToBoolean(raw.sortTagsAlphabetically);
     this.nativeScrollbars = argValueToBoolean(raw.nativeScrollbars);
-    this.pathInMiddlePanel = argValueToBoolean(raw.pathInMiddlePanel);
     this.untrustedSpec = argValueToBoolean(raw.untrustedSpec);
     this.hideDownloadButton = argValueToBoolean(raw.hideDownloadButton);
     this.downloadFileName = raw.downloadFileName;

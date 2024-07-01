@@ -88,7 +88,7 @@ export const MenuItemUl = styled.ul<{ $expanded: boolean }>`
   margin: 0;
   padding: 0;
 
-  &:first-child {
+  &:first-child:not(:only-child) {
     padding-bottom: 32px;
   }
 

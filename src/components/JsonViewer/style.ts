@@ -32,7 +32,7 @@ export const jsonStyles = css`
   }
 
   .collapsible {
-    margin-left: 2em;
+    margin-left: 2ch;
   }
 
   .hoverable {
@@ -51,8 +51,6 @@ export const jsonStyles = css`
     background-color: transparent;
     border: 0;
     color: #fff;
-    font-family: ${props => props.theme.typography.code.fontFamily};
-    font-size: ${props => props.theme.typography.code.fontSize};
     padding-right: 6px;
     padding-left: 6px;
     padding-top: 0;
@@ -74,6 +72,13 @@ export const jsonStyles = css`
       outline-style: dotted;
       outline-width: 1px;
     }
+  }
+
+  code {
+    color: #fff;
+    font-family: ${props => props.theme.typography.code.fontFamily};
+    font-size: ${props => props.theme.typography.code.fontSize};
+    font-weight: 400;
   }
 
   ul {

@@ -106,7 +106,7 @@ function autoInit() {
   }
   const specUrl = element.getAttribute('spec-url');
   if (specUrl) {
-    init(specUrl, {}, element);
+    init(specUrl, { onlyRequiredInSamples: true }, element);
   }
 }
 
