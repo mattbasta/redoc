@@ -1,14 +1,7 @@
 import { observer } from 'mobx-react';
 import * as React from 'react';
 
-import {
-  Badge,
-  DarkRightInnerPanel,
-  DarkRightPanel,
-  H2,
-  MiddlePanel,
-  Row,
-} from '../../common-elements';
+import { Badge, DarkRightPanel, H2, MiddlePanel, Row } from '../../common-elements';
 import { ShareLink } from '../../common-elements/linkify';
 import { OperationModel } from '../../services/models';
 import styled from '../../styled-components';
@@ -28,6 +21,10 @@ import { SECTION_ATTR } from '../../services';
 
 const Description = styled.div`
   margin-bottom: ${({ theme }) => theme.spacing.unit * 6}px;
+
+  .redoc-markdown {
+    font-size: 16px;
+  }
 `;
 
 export interface OperationProps {
@@ -65,12 +62,7 @@ export const Operation = observer(({ operation }: OperationProps): JSX.Element =
         <CallbacksList callbacks={operation.callbacks} />
       </MiddlePanel>
       <DarkRightPanel>
-        <DarkRightInnerPanel>
-          <div style={{ padding: '0 16px', lineHeight: '48px' }}>
-            {!isWebhook && <Endpoint operation={operation} />}
-          </div>
-          <RequestSamples operation={operation} />
-        </DarkRightInnerPanel>
+        <RequestSamples operation={operation} />
         <ResponseSamples operation={operation} />
         <CallbackSamples callbacks={operation.callbacks} />
       </DarkRightPanel>

@@ -14,7 +14,7 @@ import { ApiContentWrap, BackgroundStub, RedocWrap } from './styled.elements';
 
 import { SearchBox } from '../SearchBox/SearchBox';
 import { StoreProvider } from '../StoreBuilder';
-import { LanguagePicker, SampleLanguageProvider } from '../PayloadSamples/SampleLanguageContext';
+import { SampleLanguageProvider } from '../PayloadSamples/SampleLanguageContext';
 
 export interface RedocProps {
   store: AppStore;
@@ -57,7 +57,6 @@ export class Redoc extends React.Component<RedocProps> {
                     null}
                   <SideMenu menu={menu} />
                 </StickyResponsiveSidebar>
-                <LanguagePicker />
                 <ApiContentWrap className="api-content">
                   <ApiInfo store={store} />
                   <ContentItems items={menu.items as any} />

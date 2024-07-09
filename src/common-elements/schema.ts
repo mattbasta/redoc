@@ -1,32 +1,31 @@
 import styled from '../styled-components';
-import { darken } from 'polished';
 import { deprecatedCss } from './mixins';
 
 export const OneOfList = styled.div`
-  margin: 0 0 3px 0;
-  display: inline-block;
-`;
-
-export const OneOfLabel = styled.span`
-  font-size: 0.9em;
-  margin-right: 10px;
-  color: ${props => props.theme.colors.primary.main};
-  font-family: ${props => props.theme.typography.headings.fontFamily};
-}
+  background: #f7f7f7;
+  border-radius: 6px;
+  display: flex;
+  justify-content: stretch;
+  padding: 2px;
+  margin-bottom: 30px;
 `;
 
 export const OneOfButton = styled.button<{ $active: boolean; $deprecated: boolean }>`
+  flex: 1 1;
+  background-color: transparent;
+  border-radius: 4px;
   display: inline-block;
-  margin-right: 10px;
-  margin-bottom: 5px;
-  font-size: 0.8em;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
   cursor: pointer;
-  border: 1px solid ${props => props.theme.colors.primary.main};
-  padding: 2px 10px;
-  line-height: 1.5em;
+  padding: 6px 8px;
   outline: none;
+  border: 1px solid #f7f7f7;
+  transition: border-color 0.2s, background-color 0.2s;
+
   &:focus {
-    box-shadow: 0 0 0 1px ${props => props.theme.colors.primary.main};
+    border: 1px solid #ebebeb;
   }
 
   ${({ $deprecated }) => ($deprecated && deprecatedCss) || ''};
@@ -34,17 +33,7 @@ export const OneOfButton = styled.button<{ $active: boolean; $deprecated: boolea
   ${props => {
     if (props.$active) {
       return `
-      color: white;
-      background-color: ${props.theme.colors.primary.main};
-      &:focus {
-        box-shadow: none;
-        background-color: ${darken(0.15, props.theme.colors.primary.main)};
-      }
-      `;
-    } else {
-      return `
-        color: ${props.theme.colors.primary.main};
-        background-color: white;
+        background-color: #fff;
       `;
     }
   }}

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { SecurityRequirementModel } from '../../services/models/SecurityRequirement';
 import { useStore } from '../StoreBuilder';
 import { FieldList } from '../FieldList/FieldList';
+import { FieldModel } from '../../services';
 
 export interface SecurityRequirementsProps {
   securities: SecurityRequirementModel[];
@@ -35,7 +36,7 @@ export function SecurityRequirements(props: SecurityRequirementsProps) {
             switch (scheme.http?.scheme) {
               case 'bearer':
                 description =
-                  'Use the HTTP `Authorization` header with the `Bearer` scheme with an API key.';
+                  'Use the HTTP `Authorization` header with the `Bearer` scheme along with an API key.';
                 break;
               case 'basic':
                 description =
@@ -51,7 +52,7 @@ export function SecurityRequirements(props: SecurityRequirementsProps) {
             description = 'Unknown security type';
             break;
         }
-        return { name: headerName, description };
+        return { name: headerName, description } as FieldModel;
       })}
     />
   );

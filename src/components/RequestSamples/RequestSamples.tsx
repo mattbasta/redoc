@@ -7,7 +7,9 @@ import { SourceCode } from '../SourceCode/SourceCode';
 import { DropdownOption, Tab, TabList, TabPanel, Tabs } from '../../common-elements';
 import { InvertedSimpleDropdown } from '../PayloadSamples/styled.elements';
 import { Markdown } from '../Markdown/Markdown';
-import { useSampleLanguage } from '../PayloadSamples/SampleLanguageContext';
+import { LanguagePicker, useSampleLanguage } from '../PayloadSamples/SampleLanguageContext';
+import styled from 'styled-components';
+import { CopyButton, useCopy } from '../../common-elements/CopyButtonWrapper';
 
 export interface RequestSamplesProps {
   operation: OperationModel;
@@ -26,7 +28,8 @@ export class RequestSamples extends React.Component<RequestSamplesProps> {
     }
 
     return (
-      <div>
+      <DarkRightInnerPanel>
+        <LanguagePicker />
         {samples.length === 1 ? (
           <div style={{ padding: '0 16px 16px' }}>
             {isPayloadSample(samples[0]) ? (
@@ -61,10 +64,17 @@ export class RequestSamples extends React.Component<RequestSamplesProps> {
             ))}
           </Tabs>
         )}
-      </div>
+      </DarkRightInnerPanel>
     );
   }
 }
+
+export const DarkRightInnerPanel = styled.div`
+  background-color: ${props => props.theme.codeBlock.backgroundColor};
+  border-radius: ${props => props.theme.spacing.unit}px;
+  margin-bottom: ${props => props.theme.spacing.unit * 2}px;
+  position: relative;
+`;
 
 export const RequestPayloadSamples = ({
   content,
@@ -120,10 +130,8 @@ export const RequestPayloadSamples = ({
           ariaLabel="Example"
         />
       )}
-      <div>
-        {description && <Markdown source={description} />}
-        <PayloadRenderer operation={operation} body={example.value} />
-      </div>
+      {description && <Markdown source={description} />}
+      <PayloadRenderer operation={operation} body={example.value} />
     </>
   );
 };
@@ -136,12 +144,17 @@ const PayloadRenderer = ({
   body: object | null;
 }) => {
   const { language } = useSampleLanguage();
+  const { copy, tooltipShown } = useCopy();
+
   const securityHeader = getSecurityHeaderForOperation(operation);
+  let highlightLanguage: string;
+  let command: string;
+
   if (language === 'curl') {
-    const command =
-      'curl -X ' +
-      operation.httpVerb.toUpperCase() +
-      ' ' +
+    highlightLanguage = 'sh';
+    command =
+      'curl ' +
+      (operation.httpVerb !== 'get' ? '-X ' + operation.httpVerb.toUpperCase() + ' ' : '') +
       operation.servers[0].url +
       operation.path +
       ' \\\n' +
@@ -160,9 +173,9 @@ const PayloadRenderer = ({
           }"`;
         })
         .join(' \\\n');
-    return <SourceCode source={command} lang="sh" />;
   } else if (language === 'node') {
-    const command =
+    highlightLanguage = 'js';
+    command =
       'const result = await fetch(\n' +
       `  "${operation.servers[0].url}${operation.path}",\n` +
       '  {\n' +
@@ -178,19 +191,19 @@ const PayloadRenderer = ({
         })
         .join('') +
       (body != null ? '      "Content-Type": "application/json",\n' : '') +
-      '    }\n' +
+      '    },\n' +
       (body != null
         ? `    body: JSON.stringify(${JSON.stringify(body, null, 2)
             .split('\n')
             .map(x => `    ${x}`)
             .join('\n')
-            .trim()})\n`
+            .trim()}),\n`
         : '') +
       '  },\n' +
       ').then(res => res.json());\n';
-    return <SourceCode source={command} lang="js" />;
   } else if (language === 'python') {
-    const command =
+    highlightLanguage = 'python';
+    command =
       'import httpx\n' +
       '\n' +
       `response = httpx.${operation.httpVerb}(\n` +
@@ -215,10 +228,31 @@ const PayloadRenderer = ({
       '  },\n' +
       ')\n' +
       'response.raise_for_status()\n';
-    return <SourceCode source={command} lang="python" />;
   } else {
     return null;
   }
+
+  return (
+    <>
+      <CopyButton
+        onClick={() => {
+          copy(command);
+        }}
+        tooltipShown={tooltipShown}
+        style={{
+          appearance: 'none',
+          color: '#a5b4c7',
+          position: 'absolute',
+          right: '16px',
+          top: '12px',
+          background: 'transparent',
+          border: 0,
+          transition: 'color 0.25s ease',
+        }}
+      />
+      <SourceCode lang={highlightLanguage} source={command} />
+    </>
+  );
 };
 
 function getSecurityHeaderForOperation(operation: OperationModel) {

@@ -43,7 +43,7 @@ const defaultTheme: ThemeInterface = {
     },
     text: {
       primary: '#333333',
-      secondary: ({ colors }) => lighten(colors.tonalOffset, colors.text.primary),
+      secondary: '#7C839C',
     },
     border: {
       dark: 'rgba(0,0,0, 0.1)',
@@ -92,7 +92,7 @@ const defaultTheme: ThemeInterface = {
     defaultDetailsWidth: '75%',
     typeNameColor: theme => theme.colors.text.secondary,
     typeTitleColor: theme => theme.schema.typeNameColor,
-    requireLabelColor: '#424918',
+    requireLabelColor: '#473FF4',
     labelsTextSize: '0.9em',
     nestingSpacing: '1em',
     nestedBackground: '#fafafa',
@@ -120,8 +120,8 @@ const defaultTheme: ThemeInterface = {
       fontFamily: '"Fira Code", Courier, monospace',
       lineHeight: ({ typography }) => typography.lineHeight,
       fontWeight: ({ typography }) => typography.fontWeightRegular,
-      color: '#e53935',
-      backgroundColor: 'rgba(38, 50, 56, 0.05)',
+      color: '#2A2C3A',
+      backgroundColor: '#F7F7F7',
       wrap: false,
     },
     links: {
@@ -134,12 +134,12 @@ const defaultTheme: ThemeInterface = {
   },
   sidebar: {
     width: '260px',
-    backgroundColor: '#15161A',
-    textColor: '#A0AEC0',
+    backgroundColor: '#F7F7F7',
+    textColor: '#2A2C3A',
     activeTextColor: theme =>
       theme.sidebar.textColor !== defaultTheme.sidebar!.textColor
         ? theme.sidebar.textColor
-        : '#fff',
+        : '#2A2C3A',
     groupItems: {
       activeBackgroundColor: theme => darken(0.1, theme.sidebar.backgroundColor),
       activeTextColor: theme => theme.sidebar.activeTextColor,
@@ -151,7 +151,7 @@ const defaultTheme: ThemeInterface = {
       textTransform: 'none',
     },
     arrow: {
-      size: '1.5em',
+      size: '20px',
       color: theme => theme.sidebar.textColor,
     },
   },
@@ -161,7 +161,7 @@ const defaultTheme: ThemeInterface = {
     gutter: '2px',
   },
   rightPanel: {
-    backgroundColor: '#15161A',
+    backgroundColor: '#fff',
     width: '40%',
     textColor: '#ffffff',
     servers: {

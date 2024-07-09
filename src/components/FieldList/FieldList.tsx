@@ -1,44 +1,55 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { Markdown } from '../Markdown/Markdown';
 import { FieldModel } from '../../services';
 import { RequiredLabel } from '../../common-elements/fields';
+import { FieldDetails, FieldShapeDetails } from '../Fields/FieldDetails';
+import { Markdown } from '../Markdown/Markdown';
 
 export const FieldList = ({
   title,
   rows,
 }: {
   title?: string;
-  rows: Array<{ name: string; description: string; required?: boolean } & Partial<FieldModel>>;
+  rows: Array<FieldModel | { name: string; description?: string; required?: boolean }>;
 }) => {
   return (
     <Container>
       {title && <Title>{title}</Title>}
       <dl>
-        {rows.map(field => (
-          <React.Fragment key={field.name}>
-            <dt>
-              <code>{field.name}</code>
-              {field.schema?.displayType && <span>{field.schema.displayType}</span>}
-              {field.required && <RequiredLabel>Required</RequiredLabel>}
-            </dt>
-            <dd>
-              {!!field.const && (
-                <Markdown
-                  source={`This field must be set to the exact value \`${field.const}\`.`}
-                />
+        {[...rows]
+          .sort((a, b) => {
+            // Sort the fields so required fields appear first
+            if (a.required && !b.required) {
+              return -1;
+            }
+            if (!a.required && b.required) {
+              return 1;
+            }
+            return 0;
+          })
+          .map(field => (
+            <React.Fragment key={field.name}>
+              <dt>
+                <FieldName style={{ marginTop: '1px' }}>{field.name}</FieldName>
+                {field.required && <RequiredLabel>Required</RequiredLabel>}
+                {field instanceof FieldModel && <FieldShapeDetails schema={field.schema} />}
+              </dt>
+              {field instanceof FieldModel ? (
+                <dd>
+                  <FieldDetails field={field} noShapeDetails />
+                </dd>
+              ) : (
+                <dd>{field.description && <Markdown source={field.description} />}</dd>
               )}
-              <Markdown source={field.description} />
-            </dd>
-          </React.Fragment>
-        ))}
+            </React.Fragment>
+          ))}
       </dl>
     </Container>
   );
 };
 
 const Container = styled.section`
-  margin-bottom: 24px;
+  margin-bottom: 40px;
 
   dl {
     margin: 0 0 8px;
@@ -49,11 +60,15 @@ const Container = styled.section`
     gap: 8px;
     flex-wrap: wrap;
     font-size: 14px;
-    line-height: 16px;
+    line-height: 18px;
 
     code {
+      display: inline;
       font-family: 'Fira Code', monospace;
       font-weight: 600;
+    }
+    > * {
+      vertical-align: middle;
     }
   }
   dt ~ dt {
@@ -68,6 +83,14 @@ const Container = styled.section`
   }
 `;
 const Title = styled.h3`
-  font-size: 16px;
+  font-size: 20px;
+  font-weight: 500;
+  padding-bottom: 16px;
   border-bottom: 1px solid ${props => props.theme.colors.border.dark};
+`;
+const FieldName = styled.code`
+  font-family: 'Fira Code', monospace;
+  font-size: 16px;
+  font-weight: 600;
+  display: inline-block;
 `;

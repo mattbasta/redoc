@@ -68,7 +68,12 @@ export const CopyButton = ({
   ...rest
 }: React.HTMLAttributes<HTMLButtonElement> & { tooltipShown: boolean }) => {
   return (
-    <button type="button" {...rest} onClick={e => supported && onClick?.(e)} style={{ padding: 0 }}>
+    <button
+      type="button"
+      {...rest}
+      onClick={e => supported && onClick?.(e)}
+      style={{ padding: 0, ...rest.style }}
+    >
       <Tooltip title={supported ? 'Copied' : 'Not supported in your browser'} open={tooltipShown}>
         <CopyIcon />
       </Tooltip>

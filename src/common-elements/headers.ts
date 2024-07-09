@@ -23,6 +23,8 @@ export const H1 = styled.h1`
 export const H2 = styled.h2`
   ${headerCommonMixin(2)};
   color: ${({ theme }) => theme.colors.text.primary};
+  font-size: 24px;
+  font-weight: 500;
   margin: 0 0 20px;
 
   ${extensionsHook('H2')};
@@ -31,6 +33,8 @@ export const H2 = styled.h2`
 export const H3 = styled.h2`
   ${headerCommonMixin(3)};
   color: ${({ theme }) => theme.colors.text.primary};
+  font-size: 20px;
+  font-weight: 500;
 
   ${extensionsHook('H3')};
 `;

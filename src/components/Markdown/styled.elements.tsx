@@ -70,9 +70,9 @@ export const StyledMarkdownBlock = styled(
     background-color: ${({ theme }) => theme.typography.code.backgroundColor};
 
     font-family: ${props => props.theme.typography.code.fontFamily};
-    border-radius: 2px;
-    border: 1px solid rgba(38, 50, 56, 0.1);
-    padding: 0 ${({ theme }) => theme.spacing.unit}px;
+    border-radius: 4px;
+    border: 1px solid #ebebeb;
+    padding: 0 6px;
     font-size: ${props => props.theme.typography.code.fontSize};
     font-weight: ${({ theme }) => theme.typography.code.fontWeight};
 

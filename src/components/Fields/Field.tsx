@@ -59,7 +59,7 @@ export class Field extends React.Component<FieldProps> {
       <>
         {kind === 'additionalProperties' && <PropertyLabel>additional property</PropertyLabel>}
         {kind === 'patternProperties' && <PropertyLabel>pattern property</PropertyLabel>}
-        {required && <RequiredLabel>required</RequiredLabel>}
+        {required && <RequiredLabel>Required</RequiredLabel>}
       </>
     );
 

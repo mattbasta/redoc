@@ -57,8 +57,6 @@ export const ClickablePropertyNameCell = styled(PropertyNameCell)`
 
 export const FieldLabel = styled.span`
   vertical-align: middle;
-  font-size: ${({ theme }) => theme.typography.code.fontSize};
-  line-height: 20px;
 `;
 
 export const TypePrefix = styled(FieldLabel)`
@@ -77,15 +75,12 @@ export const TypeTitle = styled(FieldLabel)`
 export const TypeFormat = TypeName;
 
 export const RequiredLabel = styled(FieldLabel).attrs({
-  as: 'div',
+  as: 'span',
 })`
-  background: #f3ffb0;
   color: ${props => props.theme.schema.requireLabelColor};
   border-radius: 3px;
   display: inline-block;
-  font-size: ${props => props.theme.schema.labelsTextSize};
-  font-weight: normal;
-  line-height: 16px;
+  font-weight: 500;
   padding: 0 4px;
 `;
 
@@ -110,11 +105,11 @@ export const ExampleValue = styled(FieldLabel)`
   border-radius: 2px;
   word-break: break-word;
   ${({ theme }) => `
-    background-color: ${transparentize(0.95, theme.colors.text.primary)};
-    color: ${transparentize(0.1, theme.colors.text.primary)};
+    background-color: #F7F7F7;
+    color: ${theme.colors.text.primary};
 
-    padding: 0 ${theme.spacing.unit}px;
-    border: 1px solid ${transparentize(0.9, theme.colors.text.primary)};
+    padding: 0 6px;
+    border: 1px solid #EBEBEB;
     font-family: ${theme.typography.code.fontFamily};
 }`};
   & + & {
@@ -126,18 +121,9 @@ export const ExampleValue = styled(FieldLabel)`
 export const ExtensionValue = styled(ExampleValue)``;
 
 export const ConstraintItem = styled(FieldLabel)`
-  border-radius: 2px;
   ${({ theme }) => `
-    background-color: ${transparentize(0.95, theme.colors.primary.light)};
-    color: ${transparentize(0.1, theme.colors.primary.main)};
-
-    margin: 0 ${theme.spacing.unit}px;
-    padding: 0 ${theme.spacing.unit}px;
-    border: 1px solid ${transparentize(0.9, theme.colors.primary.main)};
-}`};
-  & + & {
-    margin-left: 0;
-  }
+    color: ${theme.schema.typeNameColor};
+  `};
   ${extensionsHook('ConstraintItem')};
 `;
 

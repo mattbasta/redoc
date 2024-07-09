@@ -1,24 +1,31 @@
 import * as React from 'react';
-import { ExampleValue, FieldLabel } from '../../common-elements/fields';
+import styled from 'styled-components';
 
-export interface FieldDetailProps {
-  value?: any;
-  label: string;
-  raw?: boolean;
-}
-
-function FieldDetailComponent({ value, label, raw }: FieldDetailProps) {
-  if (value === undefined) {
-    return null;
-  }
-
-  const stringifyValue = raw ? String(value) : JSON.stringify(value);
-
+export const FieldDetail = React.memo(function FieldDetail({
+  label,
+  children,
+}: {
+  label: React.ReactNode;
+  children: React.ReactNode;
+}) {
   return (
-    <div>
-      <FieldLabel> {label} </FieldLabel> <ExampleValue>{stringifyValue}</ExampleValue>
-    </div>
+    <Wrapper>
+      <Label>{label}</Label>
+      {children}
+    </Wrapper>
   );
-}
+});
 
-export const FieldDetail = React.memo<FieldDetailProps>(FieldDetailComponent);
+const Wrapper = styled.div`
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+  gap: 8px;
+`;
+
+const Label = styled.span`
+  font-family: ${props => props.theme.typography.code.fontFamily};
+  font-size: 14px;
+  font-weight: 500;
+`;

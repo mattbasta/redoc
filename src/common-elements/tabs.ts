@@ -13,6 +13,10 @@ export const Tabs = styled(ReactTabs)`
   position: relative;
 
   > ul {
+    background: #1d1e23;
+    border-radius: ${props => props.theme.spacing.unit}px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
     display: flex;
     gap: ${props => props.theme.spacing.unit * 2}px;
     list-style: none;

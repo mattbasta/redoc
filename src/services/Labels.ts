@@ -1,8 +1,8 @@
 import type { LabelsConfig, LabelsConfigRaw } from './types';
 
 const labels: LabelsConfig = {
-  enum: 'Enum',
-  enumSingleValue: 'Value',
+  enum: 'Accepted values',
+  enumSingleValue: 'Accepted value',
   enumArray: 'Items',
   default: 'Default',
   deprecated: 'Deprecated',

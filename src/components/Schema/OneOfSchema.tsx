@@ -1,11 +1,7 @@
 import { observer } from 'mobx-react';
 import * as React from 'react';
 
-import {
-  OneOfButton as StyledOneOfButton,
-  OneOfLabel,
-  OneOfList,
-} from '../../common-elements/schema';
+import { OneOfButton as StyledOneOfButton, OneOfList } from '../../common-elements/schema';
 import { Badge } from '../../common-elements/shelfs';
 import { SchemaModel } from '../../services/models';
 import { ConstraintsView } from '../Fields/FieldConstraints';
@@ -51,8 +47,7 @@ export class OneOfSchema extends React.Component<SchemaProps> {
     const activeSchema = oneOf[schema.activeOneOf];
 
     return (
-      <div>
-        <OneOfLabel> {schema.oneOfType} </OneOfLabel>
+      <>
         <OneOfList>
           {oneOf.map((subSchema, idx) => (
             <OneOfButton key={subSchema.pointer} schema={schema} subSchema={subSchema} idx={idx} />
@@ -63,7 +58,7 @@ export class OneOfSchema extends React.Component<SchemaProps> {
         </div>
         <ConstraintsView constraints={activeSchema.constraints} />
         <Schema {...this.props} schema={activeSchema} />
-      </div>
+      </>
     );
   }
 }

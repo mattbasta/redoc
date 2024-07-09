@@ -28,30 +28,31 @@ export const useSampleLanguage = () => {
 };
 
 const LanguagePickerWrapper = styled.div`
-  background: #0e0e0e;
+  background: #1d1e23;
   display: flex;
-  border-radius: 6px;
-  padding: 4px;
-  position: fixed;
-  top: 8px;
-  right: ${props => props.theme.spacing.unit * 5}px;
-  gap: 8px;
-  z-index: 2;
+  border-radius: 8px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 0 ${props => props.theme.spacing.unit * 2}px 0;
+  gap: ${props => props.theme.spacing.unit * 2}px;
+  margin-bottom: ${props => props.theme.spacing.unit * 2}px;
 
   button {
     padding: 0 16px;
-    line-height: 32px;
+    line-height: 42px;
     color: #fff;
     background: transparent;
-    border: none;
+    border: 0 solid transparent;
+    border-bottom-width: 2px;
     cursor: pointer;
     font-family: 'ABC Normal', sans-serif;
     font-size: 14px;
     font-weight: 450;
+    padding: 0;
 
     &.is-selected {
-      background: ${props => props.theme.colors.primary.dark};
-      border-radius: 6px;
+      color: ${props => props.theme.colors.responses.success.color};
+      border-bottom-color: ${props => props.theme.colors.responses.success.color};
     }
   }
 `;
@@ -60,7 +61,7 @@ export const LanguagePicker = () => {
   const { language, setLanguage } = useSampleLanguage();
 
   return (
-    <LanguagePickerWrapper>
+    <LanguagePickerWrapper className="language-picker-wrapper">
       <LanguageOption
         language="curl"
         name="cURL"

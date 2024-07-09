@@ -1,57 +1,60 @@
 import * as React from 'react';
 
-import { darken, getLuminance, lighten } from 'polished';
+import { darken } from 'polished';
 import styled from '../../styled-components';
 import { MenuItemLabel } from '../SideMenu/styled.elements';
 
 export const SearchWrap = styled.div`
   padding: 5px 0;
+  position: relative;
 `;
 
 export const SearchInput = styled.input.attrs(() => ({
   className: 'search-input',
 }))`
-  width: calc(100% - ${props => props.theme.spacing.unit * 8}px);
+  width: calc(100% - ${props => props.theme.spacing.unit * 4}px);
   box-sizing: border-box;
-  margin: 0 ${props => props.theme.spacing.unit * 4}px;
-  padding: 5px ${props => props.theme.spacing.unit * 2}px 5px
-    ${props => props.theme.spacing.unit * 4}px;
-  border: 0;
-  border-bottom: 1px solid
-    ${({ theme }) =>
-      (getLuminance(theme.sidebar.backgroundColor) > 0.5 ? darken : lighten)(
-        0.1,
-        theme.sidebar.backgroundColor,
-      )};
+  margin: 0 ${props => props.theme.spacing.unit * 2}px;
+  padding: 5px ${props => props.theme.spacing.unit}px 5px ${props => props.theme.spacing.unit * 4}px;
+  border: 1px solid #ebebeb;
+  border-radius: 8px;
   font-family: ${({ theme }) => theme.typography.fontFamily};
-  font-weight: bold;
+  font-weight: 400;
   font-size: 13px;
   color: ${props => props.theme.sidebar.textColor};
   background-color: transparent;
   outline: none;
+  ::placeholder {
+    color: #000;
+    opacity: 0.3;
+  }
 `;
 
 export const SearchIcon = styled((props: { className?: string }) => (
   <svg
     className={props.className}
-    version="1.1"
-    viewBox="0 0 1000 1000"
-    x="0px"
     xmlns="http://www.w3.org/2000/svg"
-    y="0px"
+    width="16"
+    height="16"
+    fill="none"
   >
-    <path d="M968.2,849.4L667.3,549c83.9-136.5,66.7-317.4-51.7-435.6C477.1-25,252.5-25,113.9,113.4c-138.5,138.3-138.5,362.6,0,501C219.2,730.1,413.2,743,547.6,666.5l301.9,301.4c43.6,43.6,76.9,14.9,104.2-12.4C981,928.3,1011.8,893,968.2,849.4z M524.5,522c-88.9,88.7-233,88.7-321.8,0c-88.9-88.7-88.9-232.6,0-321.3c88.9-88.7,233-88.7,321.8,0C613.4,289.4,613.4,433.3,524.5,522z" />
+    <g strokeLinecap="round" strokeLinejoin="round">
+      <path d="M7.333 12.667A5.333 5.333 0 1 0 7.333 2a5.333 5.333 0 0 0 0 10.667ZM14 14l-2.867-2.867" />
+    </g>
   </svg>
 )).attrs({
   className: 'search-icon',
 })`
   position: absolute;
-  left: ${props => props.theme.spacing.unit * 4}px;
-  height: 1.8em;
-  width: 0.9em;
+  left: ${props => props.theme.spacing.unit * 3.5}px;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  height: 16px;
+  width: 16px;
 
   path {
-    fill: ${props => props.theme.sidebar.textColor};
+    stroke: #666e7a;
   }
 `;
 
