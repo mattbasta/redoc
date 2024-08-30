@@ -7,7 +7,6 @@ import { Markdown } from '../Markdown/Markdown';
 export interface ResponseTitleProps {
   code: string;
   title: string;
-  type: string;
   empty?: boolean;
   opened?: boolean;
   className?: string;
@@ -16,7 +15,6 @@ export interface ResponseTitleProps {
 
 function ResponseTitleComponent({
   title,
-  type,
   empty,
   code,
   opened,
@@ -33,7 +31,7 @@ function ResponseTitleComponent({
       {!empty && (
         <ShelfIcon
           size={'1.5em'}
-          color={type}
+          color={'#2A2C3A'}
           direction={opened ? 'down' : 'right'}
           float={'left'}
         />

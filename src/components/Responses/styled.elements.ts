@@ -13,11 +13,8 @@ export const StyledResponseTitle = styled(ResponseTitle)`
   line-height: 1.5em;
   cursor: pointer;
 
-  color: ${props => props.theme.colors.responses[props.type].color};
-  background-color: ${props => props.theme.colors.responses[props.type].backgroundColor};
-  &:focus {
-    outline: auto ${props => props.theme.colors.responses[props.type].color};
-  }
+  color: #2a2c3a;
+  background-color: #f7f7f7;
   ${props =>
     (props.empty &&
       `

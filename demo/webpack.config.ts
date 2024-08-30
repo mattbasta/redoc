@@ -14,11 +14,13 @@ function root(filename) {
   return resolve(__dirname + '/' + filename);
 }
 
-export default (env: { playground?: boolean; bench?: boolean } = {}) => ({
+export default (env: { playground?: boolean; bench?: boolean; fixed?: boolean } = {}) => ({
   entry: [
     root('../src/polyfills.ts'),
     root(
-      env.playground
+      env.fixed
+        ? 'playground/fixed.tsx'
+        : env.playground
         ? 'playground/hmr-playground.tsx'
         : env.bench
         ? '../benchmark/index.tsx'
@@ -27,7 +29,7 @@ export default (env: { playground?: boolean; bench?: boolean } = {}) => ({
   ],
   target: 'web',
   output: {
-    filename: 'redoc-demo.bundle.js',
+    filename: env.fixed ? 'docs-bundle.js' : 'redoc-demo.bundle.js',
     path: root('dist'),
     globalObject: 'this',
   },
@@ -97,15 +99,17 @@ export default (env: { playground?: boolean; bench?: boolean } = {}) => ({
       'process.env': '{}',
       'process.platform': '"browser"',
       'process.stdout': 'null',
+      'process.cwd': '() => "/"',
     }),
     // new webpack.NamedModulesPlugin(),
     // new webpack.optimize.ModuleConcatenationPlugin(),
     new HtmlWebpackPlugin({
-      template: env.playground
-        ? 'demo/playground/index.html'
-        : env.bench
-        ? 'benchmark/index.html'
-        : 'demo/index.html',
+      template:
+        env.playground || env.fixed
+          ? 'demo/playground/index.html'
+          : env.bench
+          ? 'benchmark/index.html'
+          : 'demo/index.html',
     }),
     new webpack.ProvidePlugin({
       Buffer: ['buffer', 'Buffer'],

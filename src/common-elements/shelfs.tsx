@@ -42,8 +42,7 @@ export const ShelfIcon = styled(IntShelfIcon)`
   transform: rotateZ(${props => directionMap[props.direction || 'down']});
 
   polygon {
-    fill: ${({ color, theme }) =>
-      (color && theme.colors.responses[color] && theme.colors.responses[color].color) || color};
+    fill: ${({ color }) => color};
   }
 `;
 
