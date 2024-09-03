@@ -15,6 +15,7 @@ const options: RedocRawOptions = {
   nativeScrollbars: false,
   maxDisplayedEnumValues: 3,
   onlyRequiredInSamples: true,
+  disableSearch: true,
 };
 
 const container = document.getElementById('example');

@@ -47,6 +47,7 @@ export class MenuItem extends React.Component<MenuItemProps> {
         depth={item.depth}
         data-item-id={item.id}
         role="menuitem"
+        style={{ margin: item.depth === 1 ? '12px 0' : '0' }}
       >
         {item.type === 'operation' ? (
           <OperationMenuItemContent {...this.props} item={item as OperationModel} />
@@ -63,13 +64,11 @@ export class MenuItem extends React.Component<MenuItemProps> {
           </MenuItemLabel>
         )}
         {!withoutChildren && item.items && item.items.length > 0 && (
-          <div style={{ paddingLeft: '16px' }}>
-            <MenuItems
-              expanded={item.expanded}
-              items={item.items}
-              onActivate={this.props.onActivate}
-            />
-          </div>
+          <MenuItems
+            expanded={item.expanded}
+            items={item.items}
+            onActivate={this.props.onActivate}
+          />
         )}
       </MenuItemLi>
     );

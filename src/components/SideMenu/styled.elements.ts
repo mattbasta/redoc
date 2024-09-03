@@ -1,4 +1,3 @@
-import * as classnames from 'classnames';
 import { darken } from 'polished';
 
 import { deprecatedCss, ShelfIcon } from '../../common-elements';
@@ -86,7 +85,7 @@ function menuItemActive(
 
 export const MenuItemUl = styled.ul<{ $expanded: boolean }>`
   margin: 0;
-  padding: 0;
+  padding: 0 12px;
 
   &:first-child:not(:only-child) {
     padding-bottom: 32px;
@@ -128,28 +127,25 @@ export interface MenuItemLabelType {
   $type?: string;
 }
 
-export const MenuItemLabel = styled.label.attrs((props: MenuItemLabelType) => ({
-  className: classnames('-depth' + props.$depth, {
-    active: props.$active,
-  }),
-}))<MenuItemLabelType>`
+export const MenuItemLabel = styled.label<MenuItemLabelType>`
+  border-radius: 6px;
   cursor: pointer;
-  color: ${props =>
-    props.$active
-      ? menuItemActive(props.$depth, props, 'activeTextColor')
-      : props.theme.sidebar.textColor};
+  color: ${props => (props.$depth === 1 ? '#2A2C3A' : props.$active ? '#000000' : '#666E7A')};
   margin: 0;
-  padding: 12.5px ${props => props.theme.spacing.unit * 4}px;
+  padding: ${props => (props.$depth === 1 ? '8px 4px' : '8px 12px')};
   ${({ $depth, $type, theme }) =>
     ($type === 'section' && $depth > 1 && 'padding-left: ' + theme.spacing.unit * 8 + 'px;') || ''}
   display: flex;
   justify-content: space-between;
   font-family: ${props => props.theme.typography.headings.fontFamily};
+  font-weight: ${props => (props.$depth === 1 ? 'bold' : 'normal')};
   ${props => menuItemDepth[props.$depth]};
   background-color: ${props =>
-    props.$active
-      ? menuItemActive(props.$depth, props, 'activeBackgroundColor')
-      : props.theme.sidebar.backgroundColor};
+    props.$depth === 1
+      ? 'transparent'
+      : props.$active
+        ? menuItemActive(props.$depth, props, 'activeBackgroundColor')
+        : props.theme.sidebar.backgroundColor};
 
   ${props => (props.$deprecated && deprecatedCss) || ''};
 

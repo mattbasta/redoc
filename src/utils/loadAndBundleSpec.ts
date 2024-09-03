@@ -1,4 +1,10 @@
-import { type Document, BaseResolver, readFileFromUrl, ResolveError, Source } from '@redocly/openapi-core';
+import {
+  type Document,
+  BaseResolver,
+  readFileFromUrl,
+  ResolveError,
+  Source,
+} from '@redocly/openapi-core';
 // eslint-disable-next-line import/no-internal-modules
 import type { ResolvedConfig } from '@redocly/openapi-core/lib/config';
 
@@ -9,6 +15,7 @@ import { Config } from '@redocly/openapi-core/lib/config/config';
 import { convertObj } from 'swagger2openapi';
 import { OpenAPISpec } from '../types';
 import { IS_BROWSER } from './dom';
+// eslint-disable-next-line import/no-internal-modules
 import { bundleDocument, BundleOptions } from '@redocly/openapi-core/lib/bundle';
 
 export async function loadAndBundleSpec(specUrlOrObject: object | string): Promise<OpenAPISpec> {
@@ -70,7 +77,7 @@ async function bundle(
   opts: {
     ref?: string;
     doc?: Document;
-  } & BundleOptions
+  } & BundleOptions,
 ) {
   const {
     ref,

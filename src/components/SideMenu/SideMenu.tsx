@@ -24,7 +24,12 @@ export class SideMenu extends React.Component<{ menu: MenuStore; className?: str
           wheelPropagation: false,
         }}
       >
-        <MenuItems items={store.items} onActivate={this.activate} root={true} />
+        <MenuItems
+          items={store.items}
+          onActivate={this.activate}
+          root={true}
+          style={{ padding: '0 12px' }}
+        />
       </PerfectScrollbarWrap>
     );
   }
