@@ -1,6 +1,7 @@
 import * as CopyWebpackPlugin from 'copy-webpack-plugin';
 import ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
+import HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
 import { resolve } from 'path';
 import * as webpack from 'webpack';
 import { webpackIgnore } from '../config/webpack-utils';
@@ -21,10 +22,10 @@ export default (env: { playground?: boolean; bench?: boolean; fixed?: boolean } 
       env.fixed
         ? 'playground/fixed.tsx'
         : env.playground
-        ? 'playground/hmr-playground.tsx'
-        : env.bench
-        ? '../benchmark/index.tsx'
-        : 'index.tsx',
+          ? 'playground/hmr-playground.tsx'
+          : env.bench
+            ? '../benchmark/index.tsx'
+            : 'index.tsx',
     ),
   ],
   target: 'web',
@@ -108,9 +109,10 @@ export default (env: { playground?: boolean; bench?: boolean; fixed?: boolean } 
         env.playground || env.fixed
           ? 'demo/playground/index.html'
           : env.bench
-          ? 'benchmark/index.html'
-          : 'demo/index.html',
+            ? 'benchmark/index.html'
+            : 'demo/index.html',
     }),
+    new HtmlInlineScriptPlugin(),
     new webpack.ProvidePlugin({
       Buffer: ['buffer', 'Buffer'],
     }),
