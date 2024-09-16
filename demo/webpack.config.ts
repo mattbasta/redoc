@@ -1,7 +1,7 @@
 import * as CopyWebpackPlugin from 'copy-webpack-plugin';
 import ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
-import HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
+// import HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
 import { resolve } from 'path';
 import * as webpack from 'webpack';
 import { webpackIgnore } from '../config/webpack-utils';
@@ -112,7 +112,7 @@ export default (env: { playground?: boolean; bench?: boolean; fixed?: boolean } 
             ? 'benchmark/index.html'
             : 'demo/index.html',
     }),
-    new HtmlInlineScriptPlugin(),
+    // new HtmlInlineScriptPlugin(),
     new webpack.ProvidePlugin({
       Buffer: ['buffer', 'Buffer'],
     }),

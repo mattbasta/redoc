@@ -31,12 +31,15 @@ export const EndpointInfo = styled.div<{ $inverted?: boolean }>`
   line-height: 44px;
   font-size: 16px;
   font-weight: 500;
+  margin-bottom: 16px;
 
   .${ServerRelativeURL} {
     color: ${props => (props.$inverted ? props.theme.colors.text.primary : '#ffffff')};
   }
   &:focus {
-    box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.45), 0 2px 0 rgba(128, 128, 128, 0.25);
+    box-shadow:
+      inset 0 2px 2px rgba(0, 0, 0, 0.45),
+      0 2px 0 rgba(128, 128, 128, 0.25);
   }
   > b {
     font-weight: normal;

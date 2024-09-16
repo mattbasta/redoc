@@ -97,4 +97,5 @@ const Title = styled.h3`
   font-weight: 500;
   padding-bottom: 16px;
   border-bottom: 1px solid ${props => props.theme.colors.border.dark};
+  margin-bottom: 1em;
 `;
